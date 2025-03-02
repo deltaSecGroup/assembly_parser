@@ -3,6 +3,8 @@ import re
 import pefile
 import networkx as nx
 import capstone
+import random
+import string
 from utils import parse_dll, extract_dlls, detect_architecture, parse_file_for_dlls, parse_assembly_file
 
 class StackTracker:
@@ -187,6 +189,17 @@ def parse_assembly_file(file_path):
 
     return instructions, dll_symbols, architecture
 
+def generate_random_filename():
+    random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+    return f"parsed_{random_string}.txt"
+
+def save_parsed_instructions(instructions):
+    filename = generate_random_filename()
+    with open(filename, "w") as f:
+        for instruction in instructions:
+            f.write(f"{instruction['instruction']} {', '.join(instruction['operands'])}\n")
+    print(f"Parsed instructions saved to: {filename}")
+
 def main():
     print("Do you want to disassemble an EXE or provide an already disassembled assembly file?")
     choice = input("Enter '1' to disassemble EXE or '2' to provide assembly code file: ")
@@ -213,9 +226,11 @@ def main():
         return
 
     instructions, dll_symbols, architecture = parse_assembly_file(file_path)
-    print(f"Parsed Instructions: {instructions}")
+    print(f"Parsed Instructions: {instructions[:5]}...")  # Displaying first 5 instructions
     print(f"DLL Symbols: {dll_symbols}")
     print(f"Detected Architecture: {architecture}")
+
+    save_parsed_instructions(instructions)
 
 if __name__ == "__main__":
     main()
