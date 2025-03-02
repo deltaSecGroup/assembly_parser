@@ -27,6 +27,27 @@ You can install the necessary dependencies using pip:
 pip install capstone pefile networkx
 ```
 
+## Folder Structure
+
+The project consists of the following files:
+
+```
+/project-root
+    ├── /scripts
+        ├── install_requirements.bat
+        ├── run_program.bat
+        ├── build_project.bat
+        ├── clean_build.bat
+    ├── assembly_parser.py
+    ├── utils.py
+    └── README.md
+```
+
+- **`/scripts`**: Contains utility batch files for managing the project, including installing dependencies, running the program, building it into an executable, and cleaning up build files.
+- **`assembly_parser.py`**: Main script for disassembling and parsing assembly code.
+- **`utils.py`**: Utility functions for parsing DLLs and extracting symbols.
+- **`README.md`**: This README file.
+
 ## Usage
 
 ### Step 1: Choose Whether to Disassemble an EXE or Use an Existing Assembly File
@@ -38,11 +59,32 @@ When you run the script, you will be prompted to choose:
 
 ### Step 2: Running the Script
 
-To run the script, simply execute it:
+To run the script, use the provided batch files for easier execution:
 
-```bash
-python assembly_parser.py
-```
+1. **To install dependencies**:
+   - Open a terminal or command prompt.
+   - Navigate to the project directory and run:
+     ```batch
+     scripts\install_requirements.bat
+     ```
+
+2. **To run the program**:
+   - After installing dependencies, run:
+     ```batch
+     scripts\run_program.bat
+     ```
+
+3. **To build the project into an executable**:
+   - Run the following to generate the executable:
+     ```batch
+     scripts\build_project.bat
+     ```
+
+4. **To clean up the build files**:
+   - If you want to remove build artifacts, run:
+     ```batch
+     scripts\clean_build.bat
+     ```
 
 ### Example Output
 
@@ -91,16 +133,6 @@ CALL my_function
 - **Function Calls**: Function calls (`call`, `ret`) are tracked, and the current function in the call stack is maintained.
 - **Control Flow**: Handles control flow instructions like `jmp`, `je`, `jne`, `loop`, and more.
 - **DLL Libraries**: The script extracts and parses DLL libraries used in the assembly code.
-
-## File Structure
-
-The project consists of the following files:
-
-```
-assembly_parser.py      # Main script for disassembling and parsing assembly code
-utils.py               # Utility functions for parsing DLLs and extracting symbols
-README.md              # This README file
-```
 
 ## License
 
